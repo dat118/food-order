@@ -33,10 +33,10 @@ const AuthForm = () => {
 
     if (!isLogin) {
       var url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyASNrQ73Kihy_9dObN59Kyh-3ats4dn46w";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
     } else {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyASNrQ73Kihy_9dObN59Kyh-3ats4dn46w";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
     }
 
     const requestConfig = {

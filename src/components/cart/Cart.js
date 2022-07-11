@@ -36,7 +36,7 @@ const Cart = (props) => {
   const onConfirmHandler = (data) => {
     
     const requestConfig = {
-      url: "https://foodorder-948d1-default-rtdb.firebaseio.com/order.json",
+      url: "https://food-order-13297-default-rtdb.firebaseio.com/order.json",
       method: "POST",
       body: {
         user: data,
@@ -46,6 +46,7 @@ const Cart = (props) => {
     sentRequest(requestConfig, dataHandler);
     setIsSend(true)
     if(!hasError){ctx.clearCart()}
+    props.closeHandler();
   };
   const hasItem = ctx.items.length > 0;
   const orderConfirmHandler = () => {

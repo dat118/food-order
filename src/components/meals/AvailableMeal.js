@@ -45,7 +45,7 @@ const AvailableMeals = (props) => {
             setMealList(meals);
     }
    
-    fetchMeals({url:"https://foodorder-948d1-default-rtdb.firebaseio.com/meal.json"},mealsShowHandler);
+    fetchMeals({url:"https://food-order-13297-default-rtdb.firebaseio.com/meal.json"},mealsShowHandler);
     
   },[fetchMeals])
 
