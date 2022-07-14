@@ -4,7 +4,11 @@ import classes from "./AuthForm.module.css";
 import { useDispatch } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 import { useHistory } from "react-router-dom";
+<<<<<<< HEAD
 import axios from "axios";
+=======
+import  axios  from "axios";
+>>>>>>> 52fe51930e5bac593bbd4618bd8839abda4050b3
 const AuthForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -33,14 +37,33 @@ const AuthForm = () => {
 
     if (!isLogin) {
       var url =
+<<<<<<< HEAD
         // "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
         "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/resister";
     } else {
       url =
         // "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
         "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/auth/login";
+=======
+        "http://127.0.0.1:8000/auth/login/auth/register";
+    } else {
+      url =
+        "http://127.0.0.1:8000/auth/login";
+>>>>>>> 52fe51930e5bac593bbd4618bd8839abda4050b3
     }
+    const body = new FormData;
+    body.set('email', enteredEmail);
+    body.set('password', enteredPassword);
+    fetch(url, {
+      method: 'POST',
+      body
+    })
+    .then(response => {
+      dataHandler(response)
+    })
+    .catch(err => {
 
+<<<<<<< HEAD
     const requestConfig = {
       url: url,
       method: "POST",
@@ -62,6 +85,9 @@ const AuthForm = () => {
       .then((data) => {
         dataHandler(data);
       });
+=======
+    });
+>>>>>>> 52fe51930e5bac593bbd4618bd8839abda4050b3
   };
 
   return (
