@@ -54,7 +54,7 @@ const Checkout = (props) => {
         }`}
       >
         <label htmlFor="name">Your Name</label>
-        <input type="text" id="name" ref={inputNameRef}></input>
+        <input type="text" id="name" ref={inputNameRef} required></input>
       </div>
       <div
         className={`${classes.control} ${
@@ -62,7 +62,7 @@ const Checkout = (props) => {
         }`}
       >
         <label htmlFor="street">Street</label>
-        <input type="text" id="street" ref={inputStreetRef}></input>
+        <input type="text" id="street" ref={inputStreetRef} required></input>
       </div>
       <div
         className={`${classes.control} ${
@@ -70,7 +70,7 @@ const Checkout = (props) => {
         }`}
       >
         <label htmlFor="postal">Postal code ( 5 digits )</label>
-        <input type="text" id="postal" ref={inputPostalRef}></input>
+        <input type="text" id="postal" ref={inputPostalRef} required></input>
       </div>
       <div
         className={`${classes.control} ${
@@ -78,7 +78,7 @@ const Checkout = (props) => {
         }`}
       >
         <label htmlFor="city">City</label>
-        <input type="text" id="city" ref={inputCityRef}></input>
+        <input type="text" id="city" ref={inputCityRef} required></input>
       </div>
       <div className={classes.actions}>
         <button onClick={props.cancelOrderConfirm} type="button">

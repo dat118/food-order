@@ -4,6 +4,7 @@ import classes from "./AuthForm.module.css";
 import { useDispatch } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 const AuthForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -11,18 +12,17 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const { isLoading, hasError, sentRequest } = useHttp();
-  const logoutAuto = () => {
-    dispatch(authAction.logoutHandler());
-  };
+
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
   const dataHandler = (data) => {
     console.log(data);
-    dispatch(
-      authAction.loginHandler({ token: data.idToken })
-    );
-    setTimeout(logoutAuto, data.expiresIn*1000);
+    dispatch(authAction.loginHandler({ token: data.idToken }));
+    if (data.idToken) {
+      history.push("/");
+    } else {
+    }
   };
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -33,10 +33,12 @@ const AuthForm = () => {
 
     if (!isLogin) {
       var url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
+        // "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
+        "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/resister";
     } else {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
+        // "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
+        "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/auth/login";
     }
 
     const requestConfig = {
@@ -45,15 +47,21 @@ const AuthForm = () => {
       body: {
         email: enteredEmail,
         password: enteredPassword,
-        returnSecureToken: true,
       },
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
       },
     };
 
-    sentRequest(requestConfig, dataHandler);
-    history.push("/");
+    // sentRequest(requestConfig, dataHandler);
+    axios
+      .post(url, {
+        email: enteredEmail,
+        password: enteredPassword,
+      })
+      .then((data) => {
+        dataHandler(data);
+      });
   };
 
   return (
