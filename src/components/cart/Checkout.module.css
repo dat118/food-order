@@ -1,11 +1,7 @@
 .form {
     margin: 1rem 0;
     height: 19rem;
-<<<<<<< HEAD
     overflow-y: scroll;
-=======
-    overflow: hidden;
->>>>>>> b95a82789ba9e9100cba24f564a8070932d2abc3
   }
   
   .control {
