@@ -14,9 +14,15 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <header className={classes.header}>
-        <Link to="/">
-          <div>MEALS</div>
-        </Link>
+        {isLogin ? (
+          <Link to="/" className={classes.mobileHidden}>
+            <div >MEALS</div>
+          </Link>
+        ) : (
+          <Link to="/">
+            <div>MEALS</div>
+          </Link>
+        )}
         <nav>
           <ul>
             {!isLogin && (
@@ -31,14 +37,18 @@ const Header = (props) => {
             )}
             {isLogin && (
               <li>
-                <button onClick={logoutHandler}>Logout</button>
+                <a onClick={logoutHandler}>Logout</a>
               </li>
             )}
           </ul>
         </nav>
         {isLogin ? (
           <HeaderCartButton openCartHandler={props.openCartHandler} />
-        ):<Link to="/auth"><HeaderCartButton openCartHandler={props.openCartHandler} /></Link>}
+        ) : (
+          <Link to="/auth" className={classes.linkException}>
+            <HeaderCartButton openCartHandler={props.openCartHandler} />
+          </Link>
+        )}
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsReact} alt="FOOD" />

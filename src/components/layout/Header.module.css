@@ -43,6 +43,12 @@
     text-decoration: none;
     color: white;
     font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+  }
+
+  .linkException {
+    padding: 0 !important;
   }
   
   .header button {
@@ -58,9 +64,22 @@
   
   .header a:hover {
     background-color: #0E86D9;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.15);
+    cursor: pointer;
   }
   
   .header button:hover {
     background-color: #0E86D4;
-    
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  @media only screen and (max-width: 767px){
+    .header button{
+      padding: 0.5rem;
+    }
+
+    .mobileHidden {
+      order: 2;
+      display: none;
+    }
   }

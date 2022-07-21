@@ -1,7 +1,11 @@
 .form {
     margin: 1rem 0;
     height: 19rem;
+<<<<<<< HEAD
     overflow-y: scroll;
+=======
+    overflow: hidden;
+>>>>>>> b95a82789ba9e9100cba24f564a8070932d2abc3
   }
   
   .control {
@@ -30,9 +34,10 @@
   
   .actions button {
     font: inherit;
-    color: #0E86D4;
-    cursor: pointer;
     background-color: transparent;
+    border: 1px solid #7EC8E3 !important;
+    color: #7EC8E3;
+    cursor: pointer;
     border: none;
     border-radius: 25px;
     padding: 0.5rem 2rem; 
@@ -40,7 +45,8 @@
   
   .actions button:hover,
   .actions button:active {
-    background-color: #0C2D48;
+    background-color: #0E86D4;
+    color: #fff;
   }
   
   .actions .submit {
@@ -61,4 +67,13 @@
   .invalid input {
     border-color: #aa0b20;
     background-color: #ffeff1;
+  }
+
+  .actions .button--alt {
+    color: #7EC8E3;
+  }
+  
+  .actions .button {
+    background-color: #7EC8E3;
+    color: white;
   }

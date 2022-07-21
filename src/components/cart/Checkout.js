@@ -38,7 +38,10 @@ const Checkout = (props) => {
       isFormValid.city
     ) {
       props.onConfirm({
+<<<<<<< HEAD
         userId: localStorage.getItem("userId"),
+=======
+>>>>>>> b95a82789ba9e9100cba24f564a8070932d2abc3
         name: enteredName,
         street: enteredStreet,
         postal: enteredPostal,
@@ -82,10 +85,10 @@ const Checkout = (props) => {
         <input type="text" id="city" ref={inputCityRef} required></input>
       </div>
       <div className={classes.actions}>
-        <button onClick={props.cancelOrderConfirm} type="button">
+        <button onClick={props.cancelOrderConfirm} className={classes["button--alt"]} type="button">
           Cancel
         </button>
-        <button type="submit">Comfirm</button>
+        <button className={classes.button} type="submit">Comfirm</button>
       </div>
     </form>
   );

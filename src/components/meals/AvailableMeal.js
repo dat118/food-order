@@ -3,6 +3,7 @@ import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
 import Card from "../UI/Card";
 import useHttp from "../../hooks/use-http";
+import {apiUrl} from "../../contexts/constants";
 const AvailableMeals = (props) => {
   const [mealList, setMealList] = useState([]);
 
@@ -45,7 +46,7 @@ const AvailableMeals = (props) => {
             setMealList(meals);
     }
    
-    fetchMeals({url:"http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/food"},mealsShowHandler);
+    fetchMeals({url:`${apiUrl}/food`},mealsShowHandler);
     
   },[fetchMeals])
 
