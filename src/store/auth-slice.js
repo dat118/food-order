@@ -13,19 +13,20 @@ const authSlice = createSlice({
     isLogin: idToken === null ? false : true,
   },
   reducers: {
-    
     logoutHandler(state, actions) {
+      console.log("into logoutHandler");
       state.token = null;
       state.isLogin = false;
       localStorage.removeItem("token");
     },
     loginHandler(state, actions) {
-        state.token = actions.payload.token;
-        state.isLogin = true;
-        localStorage.setItem("token", actions.payload.token);
-        // const remainingTime = calExpirationTime(actions.payload.expirationTime)
-        
-      },
+      console.log("into loginHandler");
+      console.log(actions);
+      state.token = actions.payload.token;
+      state.isLogin = true;
+      localStorage.setItem("token", actions.payload.token);
+      // const remainingTime = calExpirationTime(actions.payload.expirationTime)
+    },
   },
 });
 

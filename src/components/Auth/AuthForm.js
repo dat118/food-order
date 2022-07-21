@@ -59,17 +59,17 @@ const AuthForm = () => {
 
     if (!isLogin) {
       var url =
-        "http://127.0.0.1:8000/auth/register";
+        "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/auth/register";
     } else {
       url =
-        "http://127.0.0.1:8000/auth/login";
+        "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/auth/login";
     }
     fetchAndGetContent(url, 'POST', {
       email: enteredEmail,
       password: enteredPassword
     })
     .then(response => {
-      console.log(response);
+      dataHandler(response);
     })
     .catch(() => {
 
