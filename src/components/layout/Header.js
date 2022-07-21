@@ -2,15 +2,15 @@ import React from "react";
 import mealsReact from "../../assets/meals.jpg";
 import classes from "./Header.module.css";
 import HeaderCartButton from "./HeaderCartButton";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
-  const logoutHandler = () =>{
-    dispatch(authAction.logoutHandler())
-  }
+  const logoutHandler = () => {
+    dispatch(authAction.logoutHandler());
+  };
   return (
     <React.Fragment>
       <header className={classes.header}>
@@ -24,11 +24,11 @@ const Header = (props) => {
                 <Link to="/auth">Login</Link>
               </li>
             )}
-            {isLogin && (
+            {/* {isLogin && (
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-            )}
+            )} */}
             {isLogin && (
               <li>
                 <button onClick={logoutHandler}>Logout</button>
@@ -36,8 +36,9 @@ const Header = (props) => {
             )}
           </ul>
         </nav>
-
-        <HeaderCartButton openCartHandler={props.openCartHandler} />
+        {isLogin ? (
+          <HeaderCartButton openCartHandler={props.openCartHandler} />
+        ):<Link to="/auth"><HeaderCartButton openCartHandler={props.openCartHandler} /></Link>}
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsReact} alt="FOOD" />

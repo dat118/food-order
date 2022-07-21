@@ -43,10 +43,11 @@ const AuthForm = () => {
   };
   const dataHandler = (data) => {
     console.log(data);
-    dispatch(authAction.loginHandler({ token: data.idToken }));
     if (data.idToken) {
+      dispatch(authAction.loginHandler({ token: data.idToken }));
       history.push("/");
     } else {
+      setIsLogin(true)
     }
   };
   const onSubmitHandler = (event) => {
