@@ -36,7 +36,7 @@ const Cart = (props) => {
   const onConfirmHandler = (data) => {
     
     const requestConfig = {
-      url: "https://food-order-13297-default-rtdb.firebaseio.com/order.json",
+      url: "http://127.0.0.1:8000/order",
       method: "POST",
       body: {
         user: data,
@@ -60,7 +60,7 @@ const Cart = (props) => {
     <ul className={classes["cart-items"]}>{cartItem}</ul>
     <div className={classes.total}>
       <span>Total Amount</span>
-      <span>${ctx.totalAmount.toFixed(2)}</span>
+      <span>${ctx.totalAmount}</span>
     </div>
     {orderConfirm && (
       <Checkout
