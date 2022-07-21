@@ -38,6 +38,7 @@ const Checkout = (props) => {
       isFormValid.city
     ) {
       props.onConfirm({
+        
         name: enteredName,
         street: enteredStreet,
         postal: enteredPostal,

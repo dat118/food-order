@@ -45,7 +45,7 @@ const AvailableMeals = (props) => {
             setMealList(meals);
     }
    
-    fetchMeals({url:"http://127.0.0.1:8000/food"},mealsShowHandler);
+    fetchMeals({url:"http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/food"},mealsShowHandler);
     
   },[fetchMeals])
 

@@ -36,7 +36,9 @@ const Cart = (props) => {
   const onConfirmHandler = (data) => {
     
     const requestConfig = {
-      url: "http://127.0.0.1:8000/order",
+      url: 
+      // "http://127.0.0.1:8000/order",
+      "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/order",
       method: "POST",
       body: {
         user: data,
