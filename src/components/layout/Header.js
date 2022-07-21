@@ -8,9 +8,9 @@ import { authAction } from "../../store/auth-slice";
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
-  const logoutHandler = () =>{
-    dispatch(authAction.logoutHandler())
-  }
+  const logoutHandler = () => {
+    dispatch(authAction.logoutHandler());
+  };
   return (
     <React.Fragment>
       <header className={classes.header}>

@@ -13,10 +13,18 @@ const ModelOverlay = (props) => {
   );
 };
 const Model = (props) => {
-    return <>
-    {ReactDOM.createPortal(<Backdrop onClick={props.closeHandler}/>,document.getElementById('overlays'))}
-    {ReactDOM.createPortal(<ModelOverlay>{props.children}</ModelOverlay>,document.getElementById('overlays'))}
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <Backdrop onClick={props.closeHandler} />,
+        document.getElementById("overlays")
+      )}
+      {ReactDOM.createPortal(
+        <ModelOverlay>{props.children}</ModelOverlay>,
+        document.getElementById("overlays")
+      )}
     </>
+  );
 };
 
 export default Model;
