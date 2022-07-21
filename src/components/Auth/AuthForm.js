@@ -4,6 +4,7 @@ import classes from "./AuthForm.module.css";
 import { useDispatch } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 import { useHistory } from "react-router-dom";
+import  axios  from "axios";
 const AuthForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -33,27 +34,24 @@ const AuthForm = () => {
 
     if (!isLogin) {
       var url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
+        "http://127.0.0.1:8000/auth/login/auth/register";
     } else {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTMwvpbLj5mUGfhKlwBs6K_uADWBSxRUM";
+        "http://127.0.0.1:8000/auth/login";
     }
+    const body = new FormData;
+    body.set('email', enteredEmail);
+    body.set('password', enteredPassword);
+    fetch(url, {
+      method: 'POST',
+      body
+    })
+    .then(response => {
+      dataHandler(response)
+    })
+    .catch(err => {
 
-    const requestConfig = {
-      url: url,
-      method: "POST",
-      body: {
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
-      },
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    sentRequest(requestConfig, dataHandler);
-    history.push("/");
+    });
   };
 
   return (

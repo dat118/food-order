@@ -36,7 +36,7 @@ const AvailableMeals = (props) => {
       const meals= []
       for (const key in data) {
               meals.push({
-                id: key,
+                id: data[key].id,
                 name: data[key].name,
                 description: data[key].description,
                 price: data[key].price,
@@ -45,7 +45,7 @@ const AvailableMeals = (props) => {
             setMealList(meals);
     }
    
-    fetchMeals({url:"https://food-order-13297-default-rtdb.firebaseio.com/meal.json"},mealsShowHandler);
+    fetchMeals({url:"http://127.0.0.1:8000/food"},mealsShowHandler);
     
   },[fetchMeals])
 
