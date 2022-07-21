@@ -38,7 +38,7 @@ const Checkout = (props) => {
       isFormValid.city
     ) {
       props.onConfirm({
-        
+        userId: localStorage.getItem("userId"),
         name: enteredName,
         street: enteredStreet,
         postal: enteredPostal,

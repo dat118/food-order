@@ -24,11 +24,11 @@ const Header = (props) => {
                 <Link to="/auth">Login</Link>
               </li>
             )}
-            {/* {isLogin && (
+            {isLogin && (
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-            )} */}
+            )}
             {isLogin && (
               <li>
                 <button onClick={logoutHandler}>Logout</button>

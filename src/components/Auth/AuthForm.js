@@ -37,14 +37,14 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const { isLoading, hasError, sentRequest } = useHttp();
-
+  const [err, setErr] = useState(null);
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
   const dataHandler = (data) => {
     console.log(data);
     if (data.idToken) {
-      dispatch(authAction.loginHandler({ token: data.idToken }));
+      dispatch(authAction.loginHandler({ token: data.idToken,userId:data.userId }));
       history.push("/");
     } else {
       setIsLogin(true)
@@ -73,8 +73,8 @@ const AuthForm = () => {
     .then(response => {
       dataHandler(response);
     })
-    .catch(() => {
-
+    .catch((error) => {
+      setErr('Invalid input')
     });
   };
 
@@ -95,6 +95,7 @@ const AuthForm = () => {
             ref={passwordInputRef}
           />
         </div>
+        {err}
         <div className={classes.actions}>
           <button>{isLogin ? "Login" : "Create Account"}</button>
           <button

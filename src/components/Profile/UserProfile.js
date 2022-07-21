@@ -1,11 +1,13 @@
-import ProfileForm from './ProfileForm';
-import classes from './UserProfile.module.css';
-
+import ProfileForm from "./ProfileForm";
+import classes from "./UserProfile.module.css";
+import OrderHistory from "./OrderHistory";
 const UserProfile = () => {
   return (
     <section className={classes.profile}>
-      <h1>Your User Profile</h1>
+      <h2>Your User Profile</h2>
       <ProfileForm />
+      <h3>Order history</h3>
+      <OrderHistory />
     </section>
   );
 };

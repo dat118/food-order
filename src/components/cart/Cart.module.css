@@ -8,7 +8,9 @@
     overflow-y: scroll;
     scrollbar-width: 2px;
   }
-  
+  .cart{
+    overflow-y: wrap;
+  }
   .total {
     display: flex;
     justify-content: space-between;
