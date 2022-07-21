@@ -4,6 +4,32 @@ import classes from "./AuthForm.module.css";
 import { useDispatch } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 import { useHistory } from "react-router-dom";
+
+
+ const fetchAndGetContent = async (url = '', method = 'GET', body = {}) => {
+  if (['GET', 'HEAD'].includes(method)) {
+      url = new URL(url);
+      const bodyParams = new URLSearchParams(body);
+      const urlParams = url.searchParams;
+      const allParameters = new URLSearchParams({
+          ...Object.fromEntries(bodyParams),
+          ...Object.fromEntries(urlParams)
+      });
+      url = `${url.origin}${url.pathname}?${allParameters.toString()}`;
+      const response = await fetch(url);
+      return (await response.json()) || null;
+  } else {
+      const formData = new FormData;
+      Object.keys(body).forEach(key => formData.append(key, body[key]));
+      const response = await fetch(url, {
+          method,
+          headers: {},
+          body: formData
+      });
+      return (await response.json()) || null;
+  }
+}
+
 const AuthForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -32,24 +58,21 @@ const AuthForm = () => {
 
     if (!isLogin) {
       var url =
-        // "http://127.0.0.1:8000/auth/login/auth/register";
-        'http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/auth/register'
+        // "http://127.0.0.1:8000/auth/register";
+        "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/auth/register"
     } else {
       url =
         // "http://127.0.0.1:8000/auth/login";
         'http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/auth/login'
     }
-    const body = new FormData;
-    body.set('email', enteredEmail);
-    body.set('password', enteredPassword);
-    fetch(url, {
-      method: 'POST',
-      body
+    fetchAndGetContent(url, 'POST', {
+      email: enteredEmail,
+      password: enteredPassword
     })
     .then(response => {
-      dataHandler(response)
+      dataHandler(response);
     })
-    .catch(err => {
+    .catch(() => {
 
     });
   };
