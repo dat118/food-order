@@ -37,7 +37,7 @@ const ProfileForm = () => {
     };
 
     sentRequest(requestConfig, dataHandler);
-    dispatch(authAction.logoutHandler())
+    dispatch(authAction.logoutHandler());
     history.push("/");
   };
   return (
