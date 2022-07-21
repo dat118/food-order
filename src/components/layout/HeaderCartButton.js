@@ -18,9 +18,9 @@ const HeaderCartButton = (props) => {
     const timer = setTimeout(() => {
       setButtonHightLight(false);
     }, 300);
-    return()=>{
-      clearTimeout(timer)
-    }
+    return () => {
+      clearTimeout(timer);
+    };
   }, [ctx.items]);
   return (
     <React.Fragment>

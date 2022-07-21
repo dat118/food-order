@@ -7,7 +7,7 @@ import Checkout from "./Checkout";
 import useHttp from "../../hooks/use-http";
 const Cart = (props) => {
   const [orderConfirm, setOrderConfirm] = useState(false);
-  const [isSend,setIsSend] = useState (false)
+  const [isSend, setIsSend] = useState(false);
   const ctx = useContext(CartContext);
   const { isLoading, hasError, sentRequest } = useHttp();
   const dataHandler = (data) => {
@@ -34,7 +34,6 @@ const Cart = (props) => {
     </CartItem>
   ));
   const onConfirmHandler = (data) => {
-    
     const requestConfig = {
       url: "http://127.0.0.1:8000/order",
       method: "POST",
@@ -44,8 +43,10 @@ const Cart = (props) => {
       },
     };
     sentRequest(requestConfig, dataHandler);
-    setIsSend(true)
-    if(!hasError){ctx.clearCart()}
+    setIsSend(true);
+    if (!hasError) {
+      ctx.clearCart();
+    }
     props.closeHandler();
   };
   const hasItem = ctx.items.length > 0;
@@ -56,45 +57,44 @@ const Cart = (props) => {
     setOrderConfirm(false);
   };
 
-  const cartContent = (<React.Fragment>
-    <ul className={classes["cart-items"]}>{cartItem}</ul>
-    <div className={classes.total}>
-      <span>Total Amount</span>
-      <span>${ctx.totalAmount}</span>
-    </div>
-    {orderConfirm && (
-      <Checkout
-        cancelOrderConfirm={cancelOrderConfirm}
-        onConfirm={onConfirmHandler}
-      />
-    )}
-    {!orderConfirm && (
-      <div className={classes.actions}>
-        <button
-          className={classes["button--alt"]}
-          onClick={props.closeHandler}
-        >
-          Close
-        </button>
-        {hasItem && (
-          <button
-            className={classes.button}
-            onClick={orderConfirmHandler}
-          >
-            Order
-          </button>
-        )}
+  const cartContent = (
+    <React.Fragment>
+      <ul className={classes["cart-items"]}>{cartItem}</ul>
+      <div className={classes.total}>
+        <span>Total Amount</span>
+        <span>${ctx.totalAmount}</span>
       </div>
-    )}
-  </React.Fragment>)
+      {orderConfirm && (
+        <Checkout
+          cancelOrderConfirm={cancelOrderConfirm}
+          onConfirm={onConfirmHandler}
+        />
+      )}
+      {!orderConfirm && (
+        <div className={classes.actions}>
+          <button
+            className={classes["button--alt"]}
+            onClick={props.closeHandler}
+          >
+            Close
+          </button>
+          {hasItem && (
+            <button className={classes.button} onClick={orderConfirmHandler}>
+              Order
+            </button>
+          )}
+        </div>
+      )}
+    </React.Fragment>
+  );
 
-  const cartSendingError = (<p>Something went wrong!</p>)
-  const cartSendingLoadind = (<p>LOADING...</p>)
-  const cartSendingSuccess = (<p>Place order successfully</p>)
+  const cartSendingError = <p>Something went wrong!</p>;
+  const cartSendingLoadind = <p>LOADING...</p>;
+  const cartSendingSuccess = <p>Place order successfully</p>;
   return (
     <Model closeHandler={props.closeHandler}>
       {hasError && cartSendingError}
-      {isLoading &&  cartSendingLoadind}
+      {isLoading && cartSendingLoadind}
       {!isLoading && !isSend && cartContent}
       {isSend && !hasError && cartSendingSuccess}
     </Model>
