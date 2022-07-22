@@ -14,6 +14,7 @@ const ProfileForm = () => {
   };
   const passwordInputRef = useRef();
   const oldPasswordInputRef = useRef();
+  
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
@@ -30,6 +31,7 @@ const ProfileForm = () => {
       body: {
         newPassword: enteredPassword,
         oldPassword: oldPassword,
+        userId: localStorage.getItem("userId"),
       },
       headers: {
         "Content-Type": "application/json",
