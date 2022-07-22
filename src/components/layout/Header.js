@@ -38,7 +38,7 @@ const Header = (props) => {
         </nav>
         {isLogin ? (
           <HeaderCartButton openCartHandler={props.openCartHandler} />
-        ):<Link to="/auth"><HeaderCartButton openCartHandler={props.openCartHandler} /></Link>}
+        ):<Link to="/auth" className={classes.linkException}><HeaderCartButton openCartHandler={props.openCartHandler} /></Link>}
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsReact} alt="FOOD" />
