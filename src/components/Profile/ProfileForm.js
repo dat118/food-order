@@ -4,7 +4,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 import { useHistory } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
-import {apiUrl} from "../../contexts/constants";
+import { apiUrl } from "../../contexts/constants";
+
+const fetchAndGetContent = async (url = '', method = 'GET', body = {}) => {
+  if (['GET', 'HEAD'].includes(method)) {
+      url = new URL(url);
+      const bodyParams = new URLSearchParams(body);
+      const urlParams = url.searchParams;
+      const allParameters = new URLSearchParams({
+          ...Object.fromEntries(bodyParams),
+          ...Object.fromEntries(urlParams)
+      });
+      url = `${url.origin}${url.pathname}?${allParameters.toString()}`;
+      const response = await fetch(url);
+      return (await response.json()) || null;
+  } else {
+      const formData = new FormData;
+      Object.keys(body).forEach(key => formData.append(key, body[key]));
+      const response = await fetch(url, {
+          method,
+          headers: {},
+          body: formData
+      });
+      return (await response.json()) || null;
+  }
+}
 const ProfileForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -38,8 +62,17 @@ const ProfileForm = () => {
       },
     };
 
-    sentRequest(requestConfig, dataHandler);
-    dispatch(authAction.logoutHandler());
+    fetchAndGetContent(url, 'POST', {
+      'new_password': enteredPassword,
+      'old_password': oldPassword,
+      userId: localStorage.getItem("userId"),
+    })
+    .then(response => {
+      dataHandler(response);
+    })
+    .catch((error) => {
+      alert('old password incorrect');
+    });
     history.push("/");
   };
   return (
