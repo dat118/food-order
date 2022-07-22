@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 import { useHistory } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
+import {apiUrl} from "../../contexts/constants";
 const ProfileForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -22,8 +23,7 @@ const ProfileForm = () => {
     const oldPassword = oldPasswordInputRef.current.value;
     // add validation
 
-    let url =
-      "";
+    let url = `${apiUrl}/auth/password`;
 
     const requestConfig = {
       url: url,
