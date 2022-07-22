@@ -5,6 +5,7 @@ import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 import useHttp from "../../hooks/use-http";
+import { apiUrl } from "../../contexts/constants";
 const Cart = (props) => {
   const [orderConfirm, setOrderConfirm] = useState(false);
   const [isSend,setIsSend] = useState (false)
@@ -34,11 +35,10 @@ const Cart = (props) => {
     </CartItem>
   ));
   const onConfirmHandler = (data) => {
-    
     const requestConfig = {
       url: 
       // "http://127.0.0.1:8000/order",
-      "http://5f30-2001-ee0-4161-b7b2-5572-32a-263-cbe2.ngrok.io/order",
+      `${apiUrl}/order`,
       method: "POST",
       body: {
         user: data,

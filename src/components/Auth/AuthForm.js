@@ -4,7 +4,7 @@ import classes from "./AuthForm.module.css";
 import { useDispatch } from "react-redux";
 import { authAction } from "../../store/auth-slice";
 import { useHistory } from "react-router-dom";
-
+import { apiUrl } from "../../contexts/constants";
 
  const fetchAndGetContent = async (url = '', method = 'GET', body = {}) => {
   if (['GET', 'HEAD'].includes(method)) {
@@ -35,11 +35,11 @@ const AuthForm = () => {
   const dispatch = useDispatch();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const { isLoading, hasError, sentRequest } = useHttp();
 
   const switchAuthModeHandler = () => {
-    setIsLogin((prevState) => !prevState);
+    setIsLoginForm((prevState) => !prevState);
   };
   const dataHandler = (data) => {
     console.log(data);
@@ -47,7 +47,7 @@ const AuthForm = () => {
       dispatch(authAction.loginHandler({ token: data.idToken }));
       history.push("/");
     } else {
-      setIsLogin(true)
+      setIsLoginForm(true)
     }
   };
   const onSubmitHandler = (event) => {
@@ -56,15 +56,14 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     // add validation
-
-    if (!isLogin) {
+    if (!isLoginForm) {
       var url =
         // "http://127.0.0.1:8000/auth/register";
-        "http://bc0d-2001-ee0-4161-b7b2-14da-de1-fb1c-2121.ngrok.io/auth/register"
+        `${apiUrl}/auth/register`
     } else {
       url =
         // "http://127.0.0.1:8000/auth/login";
-        'http://bc0d-2001-ee0-4161-b7b2-14da-de1-fb1c-2121.ngrok.io/auth/login'
+        `${apiUrl}/auth/login`
     }
     fetchAndGetContent(url, 'POST', {
       email: enteredEmail,
@@ -73,14 +72,14 @@ const AuthForm = () => {
     .then(response => {
       dataHandler(response);
     })
-    .catch(() => {
-
+    .catch((err) => {
+      console.log(err);
     });
   };
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      <h1>{isLoginForm ? "Login" : "Sign Up"}</h1>
       <form onSubmit={onSubmitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
@@ -96,13 +95,13 @@ const AuthForm = () => {
           />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
+          <button>{isLoginForm ? "Login" : "Create Account"}</button>
           <button
             type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? "Create new account" : "Login with existing account"}
+            {isLoginForm ? "Create new account" : "Login with existing account"}
           </button>
           {isLoading && <p>LOADING</p>}
         </div>
