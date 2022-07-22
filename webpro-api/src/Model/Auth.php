@@ -96,25 +96,6 @@ class Auth {
         }   
     }
 
-    public function changePassword($input){
-        $statement = "
-            UPDATE users
-            SET password = :password
-            WHERE email = :email
-        ";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array(
-                'email'  => $input['email'],
-                'password'  => $input['password']
-            ));
-            return $statement->rowCount();
-
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
-        }   
-    }
 
     public function delete($id)
     {
