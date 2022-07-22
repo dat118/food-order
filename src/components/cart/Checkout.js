@@ -81,10 +81,10 @@ const Checkout = (props) => {
         <input type="text" id="city" ref={inputCityRef} required></input>
       </div>
       <div className={classes.actions}>
-        <button onClick={props.cancelOrderConfirm} type="button">
+        <button onClick={props.cancelOrderConfirm} className={classes["button--alt"]} type="button">
           Cancel
         </button>
-        <button type="submit">Comfirm</button>
+        <button className={classes.button} type="submit">Comfirm</button>
       </div>
     </form>
   );
