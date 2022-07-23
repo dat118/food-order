@@ -72,8 +72,8 @@ const AuthForm = () => {
     .then(response => {
       dataHandler(response);
     })
-    .catch((err) => {
-      alert("Invalid input")
+    .catch((error) => {
+      alert('Invalid input')
     });
   };
 
