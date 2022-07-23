@@ -1,8 +1,9 @@
 <?php
 require "../bootstrap.php";
-require __DIR__ . '/../vendor/autoload.php';
+require _DIR_ . '/../vendor/autoload.php';
 use Src\Controller\PersonController;
 use Src\Controller\FoodController;
+use Src\Controller\OrderController;
 use Src\Controller\AuthController;
 
 header("Access-Control-Allow-Origin: *");
@@ -44,6 +45,14 @@ else if ($uri[1] == 'food') {
     $controller = new FoodController($dbConnection, $requestMethod, $userId);
     $controller->processRequest();
 }
+else if ($uri[1] == 'order') {
+
+    $requestMethod = $_SERVER["REQUEST_METHOD"];
+
+    // pass the request method and user ID to the PersonController and process the HTTP request:
+    $controller = new OrderController($dbConnection, $requestMethod);
+    $controller->processRequest();
+}
 else if($uri[1] == 'auth'){
     $function = null;
     if(isset($uri[2])){
@@ -55,7 +64,7 @@ else if($uri[1] == 'auth'){
     $controller->processRequest();
 }
 
-else{
-    header("HTTP/1.1 404 Not Found");
-    exit();
-}
+// else{
+//     header("HTTP/1.1 404 Not Found");
+//     exit();
+// }
