@@ -58,7 +58,7 @@ const ProfileForm = () => {
       dataHandler(response);
     })
     .catch((error) => {
-      alert('old password incorrect');
+      // alert('old password incorrect');
     });
     history.push("/");
   };

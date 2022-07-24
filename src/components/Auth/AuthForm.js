@@ -59,11 +59,13 @@ const AuthForm = () => {
     if (!isLoginForm) {
       var url =
         // "http://127.0.0.1:8000/auth/register";
-        `${apiUrl}/auth/register`
+        `${apiUrl}/auth/register`;
+      var  errMsg = 'the email has been taken';
     } else {
       url =
         // "http://127.0.0.1:8000/auth/login";
-        `${apiUrl}/auth/login`
+        `${apiUrl}/auth/login`;
+      var  errMsg = 'incorrect email or password';
     }
     fetchAndGetContent(url, 'POST', {
       email: enteredEmail,
@@ -73,7 +75,7 @@ const AuthForm = () => {
       dataHandler(response);
     })
     .catch((error) => {
-      alert('Invalid input')
+      alert(errMsg);
     });
   };
 

@@ -43,6 +43,7 @@ const Cart = (props) => {
       body: {
         user: data,
         items: ctx.items,
+        userId: localStorage.getItem("userId"),
       },
     };
     sentRequest(requestConfig, dataHandler);
