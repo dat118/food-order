@@ -47,7 +47,20 @@ const ProfileForm = () => {
     const oldPassword = oldPasswordInputRef.current.value;
     // add validation
 
-    let url =`${apiUrl}/auth/password`;
+    let url = `${apiUrl}/auth/password`;
+
+    const requestConfig = {
+      url: url,
+      method: "POST",
+      body: {
+        newPassword: enteredPassword,
+        oldPassword: oldPassword,
+        userId: localStorage.getItem("userId"),
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
     fetchAndGetContent(url, 'POST', {
       'new_password': enteredPassword,
