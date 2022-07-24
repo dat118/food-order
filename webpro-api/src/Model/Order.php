@@ -36,9 +36,9 @@ class Order {
     {
         $statement = "
             INSERT INTO orders 
-                (name, city, postal, street)
+                (name, city, postal, street, user_id)
             VALUES
-                (:name, :city, :postal, :street);
+                (:name, :city, :postal, :street, :user_id);
         ";
 
         $lastOrderIdStatement="SELECT MAX(id) FROM orders";
@@ -62,6 +62,7 @@ class Order {
                 'city'  => $input['user']['city'],
                 'postal' => $input['user']['postal'] ?? null,
                 'street' => $input['user']['street'] ?? null,
+                'user_id' => $input['user']['userId'] ?? null,
             ));
 
             $lastOrderIdStatement->execute();
@@ -76,7 +77,48 @@ class Order {
                     'amount' => $value['amount'],
                 ));
             }
-            // return $statement->rowCount();
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }    
+    }
+
+    public function getHistory($userId){
+        $deliInfoStatement = "
+            SELECT id as order_id, name, city, postal, street
+            FROM orders 
+            WHERE user_id = :id
+        ";
+
+        $orderFoodStatement = "
+            SELECT order_id, food_id, amount, name, price
+            FROM order_food 
+            JOIN food 
+            ON order_food.food_id = food.id
+            WHERE order_id = :order_id
+        ";
+        try {
+            $deliInfoStatement = $this->db->prepare($deliInfoStatement);
+            $orderFoodStatement = $this->db->prepare($orderFoodStatement);
+            
+            $deliInfoStatement->execute(array(
+                'id' => $userId,
+            ));
+            
+            $order = $deliInfoStatement->fetchAll(\PDO::FETCH_ASSOC);
+             
+            foreach ($order as $key => $value) {
+                $result[$key]['user'] = $value;
+                $orderFoodStatement->execute(array(
+                    'order_id' => $order[$key]['order_id'],
+                ));
+                $food =  $orderFoodStatement->fetchAll(\PDO::FETCH_ASSOC);
+                foreach ($food as $k => $val) {
+                    $items[$k] = $val; 
+                }
+                $result[$key]['items'] = $items;
+
+            }
+            return json_encode($result);
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }    

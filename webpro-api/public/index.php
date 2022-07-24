@@ -1,6 +1,6 @@
 <?php
 require "../bootstrap.php";
-require _DIR_ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 use Src\Controller\PersonController;
 use Src\Controller\FoodController;
 use Src\Controller\OrderController;
@@ -47,10 +47,14 @@ else if ($uri[1] == 'food') {
 }
 else if ($uri[1] == 'order') {
 
+    $userId = null;
+    if (isset($uri[2])) {
+        $userId = (int) $uri[2];
+    }
     $requestMethod = $_SERVER["REQUEST_METHOD"];
-
+    
     // pass the request method and user ID to the PersonController and process the HTTP request:
-    $controller = new OrderController($dbConnection, $requestMethod);
+    $controller = new OrderController($dbConnection, $requestMethod, $userId);
     $controller->processRequest();
 }
 else if($uri[1] == 'auth'){
@@ -64,7 +68,7 @@ else if($uri[1] == 'auth'){
     $controller->processRequest();
 }
 
-// else{
-//     header("HTTP/1.1 404 Not Found");
-//     exit();
-// }
+else{
+    header("HTTP/1.1 404 Not Found");
+    exit();
+}

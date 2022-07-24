@@ -59,7 +59,8 @@ class AuthController {
         $input = $_POST;
         $result = $this->auth->check($input);
         $userId = (int)$result[0]['id'];
-        if (!$result['password_verify']) {
+        
+        if (!$result) {
             return $this->unAuthorizedResponse();
         }
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
@@ -119,18 +120,10 @@ class AuthController {
 
     private function password(){
         $input = $_POST;
-        $old['id'] = $input['userId'];
-        $old['password'] = $input['old_password'];
-        
-        $result = $this->auth->checkOldPassword($old);
-        if (!$result['password_verify']) {
-            return $this->unAuthorizedResponse();
+        if (! $this->validateUser($input)) {
+            return $this->unprocessableEntityResponse();
         }
-        
-        $new['email'] = $result[0]['email'];
-        $new['password'] = $input['new_password'];
-        $this->auth->changePassword($new);
-
+        $this->auth->insert($input);
         $response['status_code_header'] = 'HTTP/1.1 201 Created';
         $response['body'] = null;
         return $response;
