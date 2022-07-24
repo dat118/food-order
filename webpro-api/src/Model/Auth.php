@@ -41,6 +41,7 @@ class Auth {
         ";
 
         try {
+            $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 'email'  => $input['email'],
@@ -54,21 +55,20 @@ class Auth {
 
     public function check($input){
         $statement = "
-            SELECT id
+            SELECT password, id
             FROM users
             WHERE
                 email = :email
-            AND password = :password;
         ";
         
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 'email'  => $input['email'],
-                'password' => $input['password'],
             ));
             
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result['password_verify'] = (password_verify($input['password'],$result[0]['password']));
             return $result;
 
         } catch (\PDOException $e) {
@@ -76,6 +76,31 @@ class Auth {
         }   
     }
 
+    public function checkOldPassword($input){
+        $statement = "
+            SELECT password, email
+            FROM users
+            WHERE
+                id = :id
+        ";
+        
+        try {
+            $statement = $this->db->prepare($statement);
+            var_dump($input['id']);
+            $statement->execute(array(
+                'id'  => $input['id'],
+            ));
+            
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result['password_verify'] = (password_verify($input['password'],$result[0]['password']));
+            var_dump($result);
+            return $result;
+
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }   
+    }
+    
     public function checkEmailUsable($input){
         $statement = "
             SELECT *
@@ -105,6 +130,7 @@ class Auth {
 
         try {
             $statement = $this->db->prepare($statement);
+            $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
             $statement->execute(array(
                 'email'  => $input['email'],
                 'password'  => $input['password']
